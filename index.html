@@ -3,160 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SvartLila Spel & AI Deluxe</title>
+<title>SvartLila Mega AI & Spel</title>
 <style>
-body {
-    background-color: #0d0d0d;
-    color: #e0d6ff;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-header {
-    background-color: #2c0066;
-    padding: 25px;
-    text-align: center;
-}
-h1 { margin: 0; color: #d9b3ff; }
-nav {
-    background-color: #1a001a;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-select {
-    background-color: #330033;
-    color: #e0d6ff;
-    border: none;
-    padding: 8px 12px;
-    font-size: 16px;
-    border-radius: 5px;
-}
-.container {
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
-}
-.ai-box {
-    background-color: #2e002e;
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 20px;
-}
-textarea {
-    width: 100%;
-    height: 120px;
-    padding: 12px;
-    border-radius: 5px;
-    border: none;
-    background-color: #330033;
-    color: #e0d6ff;
-    font-size: 16px;
-    resize: none;
-}
-button {
-    margin-top: 12px;
-    padding: 12px 22px;
-    border: none;
-    background-color: #6600cc;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-button:hover { background-color: #9900ff; }
-.ai-response {
-    margin-top: 15px;
-    background-color: #4b004b;
-    padding: 12px;
-    border-radius: 8px;
-    min-height: 50px;
-}
+body { background-color:#0d0d0d; color:#e0d6ff; font-family:Arial,sans-serif; margin:0; padding:0; }
+header { background-color:#2c0066; padding:25px; text-align:center; }
+h1 { margin:0; color:#d9b3ff; }
+nav { background-color:#1a001a; padding:15px; display:flex; justify-content:center; gap:15px; flex-wrap:wrap; }
+select { background-color:#330033; color:#e0d6ff; border:none; padding:8px 12px; font-size:16px; border-radius:5px; }
+.container { padding:20px; max-width:1000px; margin:auto; }
+.ai-box { background-color:#2e002e; padding:20px; border-radius:12px; margin-top:20px; }
+textarea { width:100%; height:120px; padding:12px; border-radius:5px; border:none; background-color:#330033; color:#e0d6ff; font-size:16px; resize:none; }
+button { margin-top:12px; padding:12px 22px; border:none; background-color:#6600cc; color:#fff; font-size:16px; border-radius:5px; cursor:pointer; }
+button:hover { background-color:#9900ff; }
+.ai-response { margin-top:15px; background-color:#4b004b; padding:12px; border-radius:8px; min-height:50px; white-space:pre-wrap; }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>SvartLila Spel & AI Deluxe</h1>
+<h1>SvartLila Mega AI & Spel</h1>
 </header>
 
 <nav>
-    <select onchange="openGame(this.value)">
-        <option value="">Välj klassiska spel...</option>
-        <option value="https://www.miniclip.com/games/en/">Miniclip</option>
-        <option value="https://www.kongregate.com/">Kongregate</option>
-        <option value="https://www.pogo.com/games">Pogo</option>
-        <option value="https://www.newgrounds.com/">Newgrounds</option>
-        <option value="https://www.roblox.com/games">Roblox</option>
-        <option value="https://store.steampowered.com/">Steam</option>
-        <option value="https://www.epicgames.com/store/en-US/">Epic Games</option>
-    </select>
+<select onchange="openGame(this.value)">
+<option value="">Klassiska spel...</option>
+<option value="https://www.miniclip.com/games/en/">Miniclip</option>
+<option value="https://www.kongregate.com/">Kongregate</option>
+<option value="https://www.pogo.com/games">Pogo</option>
+<option value="https://www.newgrounds.com/">Newgrounds</option>
+<option value="https://www.roblox.com/games">Roblox</option>
+<option value="https://store.steampowered.com/">Steam</option>
+<option value="https://www.epicgames.com/store/en-US/">Epic Games</option>
+</select>
 
-    <select onchange="openGame(this.value)">
-        <option value="">Välj mobilspel...</option>
-        <option value="https://play.google.com/store/games">Google Play</option>
-        <option value="https://apps.apple.com/se/genre/ios-spel/id6014">App Store</option>
-    </select>
+<select onchange="openGame(this.value)">
+<option value="">Mobilspel...</option>
+<option value="https://play.google.com/store/games">Google Play</option>
+<option value="https://apps.apple.com/se/genre/ios-spel/id6014">App Store</option>
+</select>
 
-    <select onchange="openGame(this.value)">
-        <option value="">Välj retrospel...</option>
-        <option value="https://www.retrogames.cc/">RetroGames</option>
-        <option value="https://www.classicreload.com/">ClassicReload</option>
-    </select>
+<select onchange="openGame(this.value)">
+<option value="">Retrospel...</option>
+<option value="https://www.retrogames.cc/">RetroGames</option>
+<option value="https://www.classicreload.com/">ClassicReload</option>
+</select>
 </nav>
 
 <div class="container">
-    <div class="ai-box">
-        <h2>AI Chatt – Fråga vad som helst!</h2>
-        <textarea id="userInput" placeholder="Skriv något till AI..."></textarea>
-        <button onclick="talkToAI()">Skicka</button>
-        <div id="aiResponse" class="ai-response">AI svar visas här...</div>
-    </div>
+<div class="ai-box">
+<h2>AI Chatt – Fråga vad som helst!</h2>
+<textarea id="userInput" placeholder="Skriv något till AI..."></textarea>
+<button onclick="talkToAI()">Skicka</button>
+<div id="aiResponse" class="ai-response">AI svar visas här...</div>
+</div>
 </div>
 
 <script>
-function openGame(url) {
-    if(url) window.open(url, "_blank");
+function openGame(url) { if(url) window.open(url,"_blank"); }
+
+// Skapa tusentals AI-responser dynamiskt
+const topics = ["hej","spel","svart","lila","problem","hjälp","favorit","musik","film","mat","dator","sport","väder","historia","programmering"];
+const responses = [];
+
+// Generera 10 000 svar
+for(let i=0;i<10000;i++){
+    const topic = topics[Math.floor(Math.random()*topics.length)];
+    responses.push(`Svar #${i+1} på ämnet "${topic}": Det här är ett exempel på ett AI-svar som kan ändras och byggas vidare.`);
 }
 
-// Mer avancerad "AI"
-const aiDatabase = [
-    { keywords: ["hej","hallå","tja"], responses: ["Hej! Hur mår du?", "Hallå där! Vad vill du göra idag?","Tja! Kul att se dig!"] },
-    { keywords: ["spel","gaming"], responses: ["Jag älskar spel! Vilken typ gillar du mest?", "Brädspel eller datorspel?","Vill du ha tips på nya spel?"] },
-    { keywords: ["svart","lila"], responses: ["Svart och lila är riktigt coolt tillsammans!","Det ger en mystisk och elegant känsla."] },
-    { keywords: ["vader","himmel"], responses: ["Moln kan se fantastiska ut på natten.","Vädret påverkar alltid humöret!"] },
-    { keywords: ["hjälp","problem"], responses: ["Jag kan försöka hjälpa! Berätta mer.","Vad är problemet exakt?"] },
-    { keywords: ["favorit","gillar"], responses: ["Min favorit är allt som är intressant!","Jag gillar när folk utforskar nya saker."] }
-];
-
-function talkToAI() {
+// Funktion som “matchar” input mot topic
+function talkToAI(){
     const input = document.getElementById("userInput").value.toLowerCase().trim();
     const responseBox = document.getElementById("aiResponse");
-    if(!input){ responseBox.textContent = "Skriv något först!"; return; }
+    if(!input){ responseBox.textContent="Skriv något först!"; return; }
 
-    let matched = false;
-    for(const item of aiDatabase){
-        for(const kw of item.keywords){
-            if(input.includes(kw)){
-                const r = item.responses[Math.floor(Math.random()*item.responses.length)];
-                responseBox.textContent = r;
-                matched = true;
-                break;
-            }
+    // Sök efter nyckelord
+    let found = false;
+    for(let topic of topics){
+        if(input.includes(topic)){
+            // Hämta slumpmässigt svar
+            const matches = responses.filter(r=>r.includes(topic));
+            const r = matches[Math.floor(Math.random()*matches.length)];
+            responseBox.textContent = r;
+            found = true;
+            break;
         }
-        if(matched) break;
     }
 
-    if(!matched){
-        // Generellt svar om inget matchar
+    // Om inget matchar
+    if(!found){
         const genericResponses = [
             "Intressant... berätta mer!",
             "Wow, det låter spännande!",
             "Jag förstår, fortsätt gärna!",
             "Hmm, jag behöver tänka på det...",
-            "Det där är nytt för mig, kan du utveckla?"
+            "Det där är nytt för mig, kan du utveckla?",
+            "Fascinerande! Kan du ge fler detaljer?",
+            "Jag har aldrig hört talas om det, berätta mer!"
         ];
         const r = genericResponses[Math.floor(Math.random()*genericResponses.length)];
         responseBox.textContent = r;
