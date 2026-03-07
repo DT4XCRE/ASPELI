@@ -1,0 +1,46 @@
+<!-- NATURE HUB -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NatureForce</title>
+<style>
+body{margin:0;font-family:Arial;background:#06210d;color:white;}
+header{background:#111;padding:15px;text-align:center;font-size:28px;}
+nav{display:flex;justify-content:space-around;background:#222;padding:10px;position:sticky;top:60px;}
+nav select, nav button{padding:8px;margin:0 5px;cursor:pointer;}
+.section{display:none;padding:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-top:15px;}
+.card{background:#1c2a1e;padding:15px;border-radius:10px;cursor:pointer;transition:0.3s;}
+.card:hover{transform:scale(1.05);background:#2a4432;}
+.aiButton{position:fixed;bottom:20px;right:20px;border-radius:50%;width:60px;height:60px;background:#00eaff;color:black;font-size:26px;border:none;cursor:pointer;}
+.aiWindow{position:fixed;bottom:90px;right:20px;background:#111;padding:15px;width:300px;display:none;border-radius:10px;}
+</style>
+</head>
+<body>
+<header>🌿 NatureForce</header>
+<nav>
+<select id="themeSelect" onchange="changeTheme(this.value)">
+<option value="dark">Dark</option>
+<option value="light">Light</option>
+<option value="green">Green</option>
+</select>
+<button onclick="openSection('home')">Home</button>
+<button onclick="openSection('animals')">Animals</button>
+<button onclick="openSection('plants')">Plants</button>
+<button onclick="openSection('ecosystems')">Ecosystems</button>
+</nav>
+
+<div id="home" class="section" style="display:block">
+<h2>Welcome to NatureForce</h2>
+<p>Explore the wonders of nature, from animals to ecosystems. Use AI for info!</p>
+<input id="search" placeholder="Search nature topics">
+<button onclick="searchWeb()">Search</button>
+</div>
+
+<div id="animals" class="section">
+<h2>Animals</h2>
+<div class="grid">
+<div class="card" onclick="openSite('https://www.nationalgeographic.com/animals')">National Geographic Animals</div>
+<div class="card
