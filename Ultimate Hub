@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UpgradedForce Ultimate Hub</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+transition:background 0.5s, color 0.5s;
+}
+header{
+background:#111;
+color:white;
+padding:15px;
+font-size:28px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:100;
+}
+nav{
+display:flex;
+justify-content:space-around;
+background:#222;
+padding:10px;
+position:sticky;
+top:60px;
+z-index:99;
+}
+nav select, nav button{
+padding:8px;
+cursor:pointer;
+margin:0 5px;
+}
+.section{
+display:none;
+padding:20px;
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+margin-top:15px;
+}
+.card{
+background:#1c2030;
+padding:15px;
+border-radius:10px;
+cursor:pointer;
+transition:0.3s;
+}
+.card:hover{transform:scale(1.05);background:#2a2e42;}
+textarea, input{width:95%;margin:5px;padding:8px;}
+.aiButton{position:fixed;bottom:20px;right:20px;border-radius:50%;width:60px;height:60px;background:#00eaff;color:black;font-size:26px;border:none;cursor:pointer;}
+.aiWindow{position:fixed;bottom:90px;right:20px;background:#111;padding:15px;width:300px;display:none;border-radius:10px;}
+</style>
+</head>
+<body>
+
+<header>🚀 UpgradedForce Ultimate Hub</header>
+
+<nav>
+<select id="themeSelect" onchange="changeTheme(this.value)">
+<option value="dark">Dark</option>
+<option value="light">Light</option>
+<option value="blue">Blue</option>
+</select>
+
+<button onclick="openSection('home')">Home</button>
+<button onclick="openSection('math')">Math</button>
+<button onclick="openSection('languages')">Languages</button>
+<button onclick="openSection('coding')">Coding</button>
+<button onclick="openSection('engineering')">Engineering</button>
+<button onclick="openSection('gaming')">Gaming</button>
+<button onclick="openSection('shopping')">Shopping</button>
+<button onclick="openSection('space')">Solar System</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="section" style="display:block">
+<h2>Daily Hub & Utilities</h2>
+<input id="search" placeholder="Search web">
+<button onclick="searchWeb()">Search</button>
+<p>Use the top navigation to explore all modules!</p>
+</div>
+
+<!-- MATH -->
+<div id="math" class="section">
+<h2>Math Quizzes</h2>
+<select id="mathLevel">
+<option value="elementary">Elementary</option>
+<option value="middle">Middle School</option>
+<option value="high">High School</option>
+</select>
+<button onclick="startMath()">Start Quiz</button>
+<div id="mathQuiz"></div>
+</div>
+
+<!-- LANGUAGES -->
+<div id="languages" class="section">
+<h2>Language Quizzes</h2>
+<select id="langSelect">
+<option value="english">English</option>
+<option value="swedish">Swedish</option>
+<option value="spanish">Spanish</option>
+<option value="french">French</option>
+<option value="german">German</option>
+</select>
+<button onclick="startLang()">Start Quiz</button>
+<div id="langQuiz"></div>
+</div>
+
+<!-- CODING -->
+<div id="coding" class="section">
+<h2>Programming Quizzes</h2>
+<select id="codeLang">
+<option value="html">HTML</option>
+<option value="javascript">JavaScript</option>
+<option value="python">Python</option>
+<option value="java">Java</option>
+<option value="cpp">C++</option>
+<option value="csharp">C#</option>
+</select>
+<button onclick="startCoding()">Start Quiz</button>
+<div id="codeQuiz"></div>
+<pre id="codeLesson"></pre>
+</div>
+
+<!-- ENGINEERING -->
+<div id="engineering" class="section">
+<h2>Engineering Topics</h2>
+<ul>
+<li>Triangles & load distribution</li>
+<li>Bridge and building principles</li>
+<li>Game physics and engines</li>
+<li>Daily life engineering tips</li>
+</ul>
+</div>
+
+<!-- GAMING -->
+<div id="gaming" class="section">
+<h2>Popular Games & Links</h2>
+<div class="grid">
+<div class="card" onclick="openSite('https://store.steampowered.com/')">Steam</div>
+<div class="card" onclick="openSite('https://www.epicgames.com/store/en-US/')">Epic Games</div>
+<div class="card" onclick="openSite('https://www.roblox.com/')">Roblox</div>
+<div class="card" onclick="openSite('https://www.minecraft.net/')">Minecraft</div>
+<div class="card" onclick="openSite('https://www.fortnite.com/')">Fortnite</div>
+<div class="card" onclick="openSite('https://www.epicgames.com/store/en-US/browse')">Top 10 Games</div>
+</div>
+</div>
+
+<!-- SHOPPING -->
+<div id="shopping" class="section">
+<h2>Shopping Helpers</h2>
+<p>Search electronics, furniture, and deals:</p>
+<input id="shopSearch" placeholder="What do you need?">
+<button onclick="shopSearch()">Search Deals</button>
+<div class="grid">
+<div class="card" onclick="openSite('https://www.ikea.com/')">IKEA Furniture</div>
+<div class="card" onclick="openSite('https://www.amazon.com/electronics-store/b?ie=UTF8&node=172282')">Amazon Electronics</div>
+</div>
+</div>
+
+<!-- SOLAR SYSTEM -->
+<div id="space" class="section">
+<h2>Solar System</h2>
+<canvas id="solar" width="900" height="500"></canvas>
+</div>
+
+<!-- AI -->
+<div class="aiWindow" id="aiWindow">
+<textarea id="aiInput" placeholder="Ask AI for help"></textarea>
+<button onclick="aiAnswer()">Ask</button>
+<div id="aiOutput"></div>
+</div>
+<button class="ai" onclick="toggleAI()">🤖</button>
+
+<script>
+/* Section Navigation */
+function openSection(id){
+document.querySelectorAll(".section").forEach(s=>s.style.display="none")
+document.getElementById(id).style.display="block"
+}
+
+/* Theme selector */
+function changeTheme(theme){
+if(theme=='dark'){document.body.style.background='#070b18';document.body.style.color='white';}
+if(theme=='light'){document.body.style.background='#eee';document.body.style.color='black';}
+if(theme=='blue'){document.body.style.background='#0b1f40';document.body.style.color='white';}
+}
+
+/* Web search */
+function searchWeb(){
+let q=document.getElementById("search").value;
+window.open("https://www.google.com/search?q="+q);
+}
+function openSite(url){window.open(url);}
+
+/* AI Window */
+function toggleAI(){
+let w=document.getElementById("aiWindow");
+w.style.display = w.style.display=="block"?"none":"block";
+}
+function aiAnswer(){
+let q=document.getElementById("aiInput").value;
+let out="I am a demo AI. I can help guide learning and projects!";
+if(q.toLowerCase().includes("web")) out="You can use HTML, CSS, JS to build websites.";
+if(q.toLowerCase().includes("coding")) out="I can give coding exercises in JS, Python, Java, C++ or C#.";
+document.getElementById("aiOutput").innerText=out;
+}
+
+/* Math Quiz */
+let mathQ=[], mathIndex=0, mathScore=0;
+function startMath(){
+mathIndex=0;mathScore=0;mathQ=[];
+let lvl=document.getElementById("mathLevel").value;
+for(let i=0;i<10;i++){let a=Math.floor(Math.random()*20)+1;let b=Math.floor(Math.random()*20)+1;mathQ.push({q:a+" + "+b,a:a+b});}
+showMath();
+}
+function showMath(){
+if(mathIndex>=mathQ.length){document.getElementById("mathQuiz").innerHTML="Score: "+mathScore+"/"+mathQ.length;return;}
+let q=mathQ[mathIndex];
+document.getElementById("mathQuiz").innerHTML=q.q+" = <input id='mathAns'><button onclick='checkMath()'>Answer</button>";
+}
+function checkMath(){
+let a=document.getElementById("mathAns").value;
+if(a==mathQ[mathIndex].a) mathScore++;
+mathIndex++;
+showMath();
+}
+
+/* Language Quiz */
+let langWords=[["Hello","English"],["Hej","Swedish"],["Hola","Spanish"],["Bonjour","French"],["Hallo","German"]];
+let langIndex=0, langScore=0;
+function startLang(){langIndex=0;langScore=0;showLang();}
+function showLang(){
+if(langIndex>=langWords.length){document.getElementById("langQuiz").innerHTML="Score: "+langScore+"/"+langWords.length;return;}
+let w=langWords[langIndex];
+document.getElementById("langQuiz").innerHTML="What language is '"+w[0]+"'? <input id='langAns'><button onclick='checkLang()'>Answer</button>";
+}
+function checkLang(){let a=document.getElementById("langAns").value;if(a.toLowerCase()==langWords[langIndex][1].toLowerCase()) langScore++;langIndex++;showLang();}
+
+/* Coding Lessons & Quizzes */
+let codeQ=[], codeIndex=0, codeScore=0;
+function startCoding(){
+codeIndex=0;codeScore=0;codeQ=[];
+let lang=document.getElementById("codeLang").value;
+if(lang=="javascript") codeQ=[{q:"console.log('Hello') outputs?","a":"Hello"}];
+if(lang=="python") codeQ=[{q:"print('Hello') outputs?","a":"Hello"}];
+if(lang=="html") codeQ=[{q:"<h1>Hello</h1> displays?","a":"Hello"}];
+if(lang=="java") codeQ=[{q:"System.out.println('Hello') outputs?","a":"Hello"}];
+if(lang=="cpp") codeQ=[{q:'cout << "Hello"; outputs?','a':'Hello'}];
+if(lang=="csharp") codeQ=[{q:'Console.WriteLine("Hello"); outputs?','a':'Hello'}];
+showCode();
+}
+function showCode(){if(codeIndex>=codeQ.length){document.getElementById("codeQuiz").innerHTML="Score: "+codeScore+"/"+codeQ.length;return;}let q=codeQ[codeIndex];document.getElementById("codeQuiz").innerHTML=q.q+" <input id='codeAns'><button onclick='checkCode()'>Answer</button>";}
+function checkCode(){let a=document.getElementById("codeAns").value;if(a==codeQ[codeIndex].a) codeScore++;codeIndex++;showCode();}
+
+/* Shopping helper search */
+function shopSearch(){
+let q=document.getElementById("shopSearch").value;
+window.open("https://www.google.com/search?q="+q+"+site:amazon.com OR site:ikea.com");
+}
+
+/* Solar System */
+const canvas=document.getElementById("solar"), ctx=canvas.getContext("2d");
+let angle=0;
+let planets=[{r:60,size:6,color:"gray"},{r:100,size:8,color:"orange"},{r:140,size:10,color:"blue"},{r:180,size:9,color:"red"},{r:240,size:16,color:"orange"}];
+function draw(){ctx.clearRect(0,0,900,500);ctx.fillStyle="yellow";ctx.beginPath();ctx.arc(450,250,20,0,2*Math.PI);ctx.fill();
+planets.forEach((p,i)=>{let x=450+p.r*Math.cos(angle+i*0.6);let y=250+p.r*Math.sin(angle+i*0.6);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(x,y,p.size,0,2*Math.PI);ctx.fill();});angle+=0.01;requestAnimationFrame(draw);}
+draw();
+
+</script>
+</body>
+</html>
