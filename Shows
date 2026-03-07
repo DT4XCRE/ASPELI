@@ -1,0 +1,90 @@
+<!-- ANIME / SHOWS / MOVIES WEBSITE -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OtakuForce - Anime, Shows & Movies</title>
+<style>
+body{margin:0;font-family:Arial;background:#0d0d20;color:white;transition:background 0.5s,color 0.5s;}
+header{background:#111;padding:15px;text-align:center;font-size:28px;}
+nav{display:flex;justify-content:space-around;background:#222;padding:10px;position:sticky;top:60px;}
+nav select, nav button{padding:8px;margin:0 5px;cursor:pointer;}
+.section{display:none;padding:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-top:15px;}
+.card{background:#1c2030;padding:15px;border-radius:10px;cursor:pointer;transition:0.3s;}
+.card:hover{transform:scale(1.05);background:#2a2e42;}
+textarea,input{width:95%;margin:5px;padding:8px;}
+.aiButton{position:fixed;bottom:20px;right:20px;border-radius:50%;width:60px;height:60px;background:#00eaff;color:black;font-size:26px;border:none;cursor:pointer;}
+.aiWindow{position:fixed;bottom:90px;right:20px;background:#111;padding:15px;width:300px;display:none;border-radius:10px;}
+</style>
+</head>
+<body>
+
+<header>🎬 OtakuForce</header>
+
+<nav>
+<select id="themeSelect" onchange="changeTheme(this.value)">
+<option value="dark">Dark</option>
+<option value="light">Light</option>
+<option value="blue">Blue</option>
+</select>
+<button onclick="openSection('home')">Home</button>
+<button onclick="openSection('anime')">Anime</button>
+<button onclick="openSection('shows')">Shows</button>
+<button onclick="openSection('movies')">Movies</button>
+</nav>
+
+<div id="home" class="section" style="display:block">
+<h2>Welcome to OtakuForce</h2>
+<p>Discover your favorite anime, TV shows, and movies. Use AI for recommendations!</p>
+<input id="search" placeholder="Search web or database">
+<button onclick="searchWeb()">Search</button>
+</div>
+
+<div id="anime" class="section">
+<h2>Popular Anime</h2>
+<div class="grid">
+<div class="card" onclick="openSite('https://www.crunchyroll.com/')">Crunchyroll</div>
+<div class="card" onclick="openSite('https://www.funimation.com/')">Funimation</div>
+<div class="card" onclick="openSite('https://www.netflix.com/browse/genre/7424')">Netflix Anime</div>
+</div>
+</div>
+
+<div id="shows" class="section">
+<h2>Popular TV Shows</h2>
+<div class="grid">
+<div class="card" onclick="openSite('https://www.netflix.com/browse/genre/83')">Netflix Shows</div>
+<div class="card" onclick="openSite('https://www.hulu.com/hub/tv')">Hulu Shows</div>
+<div class="card" onclick="openSite('https://www.disneyplus.com/series')">Disney+ Shows</div>
+</div>
+</div>
+
+<div id="movies" class="section">
+<h2>Popular Movies</h2>
+<div class="grid">
+<div class="card" onclick="openSite('https://www.netflix.com/browse/genre/34399')">Netflix Movies</div>
+<div class="card" onclick="openSite('https://www.hbo.com/movies')">HBO Movies</div>
+<div class="card" onclick="openSite('https://www.disneyplus.com/movies')">Disney+ Movies</div>
+</div>
+</div>
+
+<!-- AI -->
+<div class="aiWindow" id="aiWindow">
+<textarea id="aiInput" placeholder="Ask AI for recommendations..."></textarea>
+<button onclick="aiAnswer()">Ask</button>
+<div id="aiOutput"></div>
+</div>
+<button class="aiButton" onclick="toggleAI()">🤖</button>
+
+<script>
+function openSection(id){document.querySelectorAll(".section").forEach(s=>s.style.display="none");document.getElementById(id).style.display="block";}
+function openSite(url){window.open(url);}
+function searchWeb(){let q=document.getElementById("search").value;window.open("https://www.google.com/search?q="+q);}
+function toggleAI(){let w=document.getElementById("aiWindow");w.style.display=w.style.display=="block"?"none":"block";}
+function aiAnswer(){let q=document.getElementById("aiInput").value;let out="I am a demo AI. I can recommend anime, shows, and movies!";if(q.toLowerCase().includes("anime")) out="Check out Attack on Titan, Jujutsu Kaisen, Naruto!";if(q.toLowerCase().includes("movie")) out="Try The Matrix, Inception, Avengers!";document.getElementById("aiOutput").innerText=out;}
+function changeTheme(t){if(t=='dark'){document.body.style.background='#0d0d20';document.body.style.color='white';}if(t=='light'){document.body.style.background='#eee';document.body.style.color='black';}if(t=='blue'){document.body.style.background='#0b1f40';document.body.style.color='white';}}
+</script>
+
+</body>
+</html>
